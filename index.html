@@ -1,14 +1,46 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOS - 할 일</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+  <div class="app">
+    <header class="header">
+      <h1>HOS 할 일</h1>
+      <p class="subtitle">매일 해야 할 일을 기록하세요</p>
+    </header>
+
+    <section class="input-section">
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="할 일을 입력하세요"
+        maxlength="200"
+        autocomplete="off"
+      />
+      <button type="button" id="addBtn" aria-label="추가">추가</button>
+    </section>
+
+    <section class="tasks-section">
+      <div class="tasks-group">
+        <h2 class="tasks-title">예정</h2>
+        <ul id="pendingList" class="task-list" aria-label="예정된 할 일 목록"></ul>
+      </div>
+
+      <div class="tasks-group">
+        <h2 class="tasks-title">완료</h2>
+        <ul id="completedList" class="task-list" aria-label="완료된 할 일 목록"></ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span id="taskCount">0</span>개의 할 일
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
