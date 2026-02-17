@@ -14,9 +14,8 @@ function loadTheme() {
   if (savedTheme) {
     document.body.classList.toggle("dark-mode", savedTheme === "dark");
   } else {
-    // Default to light mode or system preference
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.body.classList.toggle("dark-mode", prefersDark);
+    // Explicitly default to light mode if no saved preference
+    document.body.classList.remove("dark-mode"); // Ensure it's light mode by default
   }
   updateThemeToggleIcon();
 }
