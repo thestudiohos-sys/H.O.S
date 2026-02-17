@@ -1,10 +1,45 @@
 // Add JS hereconst STORAGE_KEY = "hos-tasks";
+const THEME_STORAGE_KEY = "hos-theme";
 
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const pendingList = document.getElementById("pendingList");
 const completedList = document.getElementById("completedList");
 const taskCountEl = document.getElementById("taskCount");
+const themeToggleBtn = document.getElementById("themeToggle");
+
+// Theme management
+function loadTheme() {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  if (savedTheme) {
+    document.body.classList.toggle("light-mode", savedTheme === "light");
+  } else {
+    // Default to dark mode or system preference
+    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    document.body.classList.toggle("light-mode", prefersLight);
+  }
+  updateThemeToggleIcon();
+}
+
+function saveTheme(theme) {
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+}
+
+function updateThemeToggleIcon() {
+  const iconSpan = themeToggleBtn.querySelector(".icon");
+  if (document.body.classList.contains("light-mode")) {
+    iconSpan.textContent = "🌙"; // Moon icon for light mode
+  } else {
+    iconSpan.textContent = "☀️"; // Sun icon for dark mode
+  }
+}
+
+themeToggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+  const currentTheme = document.body.classList.contains("light-mode") ? "light" : "dark";
+  saveTheme(currentTheme);
+  updateThemeToggleIcon();
+});
 
 // localStorage에서 할 일 목록 불러오기
 function loadTasks() {
@@ -144,5 +179,6 @@ taskInput.addEventListener("keydown", (e) => {
 });
 
 // 앱 시작 시 저장된 목록 불러와서 렌더링
+loadTheme(); // Load theme before rendering tasks
 const initialTasks = loadTasks();
 renderTasks(initialTasks);
